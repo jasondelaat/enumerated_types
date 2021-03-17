@@ -185,9 +185,9 @@ SmallNum = EnumeratedRange(1, 10, 'SmallNum')
     #+end_src
 
     The resulting value, ~SmallNum~ in this example, can then be used
-    as a constructor.  The third parameter is optional and is only
-    relevant when calling ~toString()~. Trying to create a value
-    outside of the allowed range throws an error.
+    to construct values in this range.  The third parameter is
+    optional and is only relevant when calling ~toString()~. Trying to
+    create a value outside of the allowed range throws an error.
 
     #+begin_src javascript
 x = SmallNum(1)
@@ -195,26 +195,4 @@ y = SmallNum(5)
 z = SmallNum(10)
 error1 = SmallNum(0)  // Error!
 error2 = SmallNum(11) // Error!
-    #+end_src
-
-    Each value supports the same methods --- ~next()~, ~previous()~,
-    ~toInt()~, ~toString()~, etc. --- as enumerated constants.
-
-    #+begin_src javascript
-x.next()     // SmallNum(2)
-y.previous() // SmallNum(4)
-z.toInt()    // 10
-z.toString() // '10'
-    #+end_src
-    
-    The constructor itself supports the ~first()~, ~last()~,
-    ~iterator()~, and ~fromInt()~ methods.
-
-    #+begin_src javascript
-SmallNum.first()    // SmallNum(1)
-SmallNum.last()     // SmallNum(10)
-SmallNum.fromInt(3) // SmallNum(3)
-
-// Prints all the values to the console.
-SmallNum.iterator().forEach(n => console.log(n.toInt()))
     #+end_src

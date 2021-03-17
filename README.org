@@ -10,21 +10,21 @@ npm install enumerated_types
 **** Browser
      Download the package from [[https://github.com/jasondelaat/enumeration/releases][here]]. 
 
-     The ~js~ folder contains two files: ~enumeration.js~ and
-     ~enumeration_module.js~.
+     The ~js~ folder contains two files: ~enumerated_types.js~ and
+     ~enumerated_module.js~.
 
-     To use ~enumeration.js~ load it from an HTML script tag:
+     To use ~enumerated_types.js~ load it from an HTML script tag:
 
      #+begin_src html
-<script type='text/javascript' src='/js/enumeration.js'></script>
+<script type='text/javascript' src='/js/enumerated_types.js'></script>
      #+end_src
      
-     To use ~enumeration_module.js~ import the required
+     To use ~enumerated_module.js~ import the required
      objects/functions:
 
      #+begin_src javascript
-import * as enumeration from '/js/enumeration_module.js'
-import {Enum} from '/js/enumeration_module.js'
+import * as enumeration from '/js/enumerated_module.js'
+import {Enum} from '/js/enumerated_module.js'
      #+end_src
      
 ** Usage

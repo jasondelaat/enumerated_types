@@ -2,7 +2,7 @@
   "name": "enumerated_types",
   "version": "1.0.0",
   "description": "Full featured, extensible enumerations for javascript.",
-  "main": "enumeration.js",
+  "main": "enumerated_types.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

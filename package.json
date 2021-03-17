@@ -1,6 +1,6 @@
 {
   "name": "enumerated_types",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Full featured, extensible enumerations for javascript.",
   "main": "enumerated_types.js",
   "scripts": {

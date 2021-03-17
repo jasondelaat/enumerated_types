@@ -93,8 +93,8 @@ someObj = {
 }
     #+end_src
     
-    In the above example the actual keys are the strings ~'RED'~ and
-    ~'BLUE'~ because javascript calls ~toString()~ automatically when
+    In the above example the actual keys are the strings ~RED~ and
+    ~BLUE~ because javascript calls ~toString()~ automatically when
     an object is used as a key.
     
     You can navigate forwards and backwards through the sequence using
@@ -137,7 +137,7 @@ Color.iterator(Color.last(), Color.first())
     .forEach(color => console.log(color.toString()))
     #+end_src
     
-    Finally, the constants can be compared in a number of ways.
+    The constants can be compared in a number of ways.
 
     #+begin_src javascript
 Color.RED.isLess(Color.BLUE)                // true
@@ -150,6 +150,28 @@ Color.RED.isEqual(Color.RED)                // true
 Color.RED === Color.GREEN                   // false
 Color.RED === Color.RED                     // true
     #+end_src
+    
+    Finally, the type can be extended with addtional methods:
+
+    #+begin_src javascript
+Answers = Enum('YES', 'NO', 'MAYBE').methods({
+    toLowerCase() {
+	return this.toString().toLowerCase();
+    },
+    capitalize() {
+	const as_string = this.toString();
+	const first = as_string[0];
+	const rest = as_string.substring(1).toLowerCase();
+	return `${first}${rest}`;
+    }
+})
+
+console.log(Answers.YES.toLowerCase());  // yes
+console.log(Answers.Maybe.capitalize()); // Maybe
+    #+end_src
+    
+    You can call ~methods~ /at most/ once. After that the prototype
+    object is frozen and can't be modified further.
 
 *** Constrained values with ~EnumeratedRange~
     Another type of enumeration are values constrained to a particular

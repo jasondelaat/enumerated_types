@@ -225,3 +225,11 @@ z = SmallNum(10)
 error1 = SmallNum(0)  // Error!
 error2 = SmallNum(11) // Error!
     #+end_src
+
+    Even though the values don't exist as constants you can still get
+    an iterator over all the possible values:
+
+    #+begin_src javascript
+// Prints all SmallNum values from 1 to 10
+SmallNum.iterator().forEach(n => console.log(n))
+    #+end_src

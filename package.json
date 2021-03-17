@@ -1,7 +1,7 @@
 {
-  "name": "enumeration",
+  "name": "@jasondelaat/enumeration",
   "version": "1.0.0",
-  "description": " Full featured, extensible enumerations for javascript.",
+  "description": "Full featured, extensible enumerations for javascript.",
   "main": "enumeration.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

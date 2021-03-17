@@ -1,0 +1,154 @@
+* Enumerated Types for Javascript
+  An implementation of enumerated types in pure javascript.
+  
+** Getting Started
+*** Installing
+** Usage
+   The ~enum~ and ~enum_module~ files both provide two functions
+   ~Enum~ --- for creating enumerated constants --- and
+   ~EnumeratedRange~ --- for creating a types with constrained
+   numerical values --- as well as an object ~EnumBase~ which can be
+   used as the prototype of other types of enumerations.
+
+*** Enumerated constants with ~Enum~
+    Use the ~Enum~ function to create a set of constants:
+
+    #+begin_src javascript
+Color = Enum(
+    'RED',
+    'ORANGE',
+    'YELLOW',
+    'GREEN',
+    'BLUE',
+    'INDIGO',
+    'VIOLET'
+)
+    #+end_src
+    
+    Constants can be converted to and from their interger equivalents:
+
+    #+begin_src javascript
+Color.fromInt(3)    // Color.GREEN
+Color.GREEN.toInt() // 3
+    #+end_src
+    
+    And you can also get the string representation:
+
+    #+begin_src javascript
+Color.RED.toString()    // 'RED'
+Color.VIOLET.toString() // 'VIOLET'
+    #+end_src
+    
+    This allows you to use the constants as if they were object
+    keys.
+
+    #+begin_src javascript
+someObj = {
+    Color.RED : 'Something having to do with red.',
+    Color.BLUE : 'Something to do with blue.',
+}
+    #+end_src
+    
+    In the above example the actual keys are the strings ~'RED'~ and
+    ~'BLUE'~ because javascript calls ~toString()~ automatically when
+    an object is used as a key.
+    
+    You can navigate forwards and backwards through the sequence using
+    ~next()~ and ~previous()~. Going past the end of the sequence
+    throws and error:
+
+    #+begin_src javascript
+Color.RED.next()        // Color.ORANGE
+Color.INDIGO.previous() // Color.BLUE
+Color.RED.previous()    // Error!
+Color.VIOLET.next()     // Error!
+    #+end_src
+    
+    To get around that you can get an ~iterator()~ and loop through
+    the values with a ~for~ loop or with ~forEach~.
+
+    #+begin_src javascript
+// Prints all the colors to the console.
+for (let color of Color.iterator()) {
+    ; console.log(color.toString()) 
+}
+
+// Also prints all the colors to the console.
+Color.iterator().forEach(color => console.log(color.toString()))
+    #+end_src
+
+    The ~iterator()~ method takes two parameters ~from~ and ~to~, both
+    optional, so you can iterate though a subset of the values.
+
+    #+begin_src javascript
+Color.iterator(Color.GREEN, Color.INDIGO)
+    .forEach(color => console.log(color.toString()))
+    #+end_src
+    
+    And can even be used to iterate though the values in reverse order
+    if desired.
+
+    #+begin_src javascript
+Color.iterator(Color.last(), Color.first())
+    .forEach(color => console.log(color.toString()))
+    #+end_src
+    
+    Finally, the constants can be compared in a number of ways.
+
+    #+begin_src javascript
+Color.RED.isLess(Color.BLUE)                // true
+Color.VIOLET.isLess(Color.BLUE)             // false
+Color.VIOLET.isGreater(Color.BLUE)          // true
+Color.VIOLET.isGreater(Color.VIOLET)        // false
+Color.VIOLET.isGreaterOrEqual(Color.VIOLET) // true
+Color.RED.isEqual(Color.GREEN)              // false
+Color.RED.isEqual(Color.RED)                // true
+Color.RED === Color.GREEN                   // false
+Color.RED === Color.RED                     // true
+    #+end_src
+
+*** Constrained types with ~EnumeratedRange~
+    Another type of enumeration are values constrained to a particular
+    range: values between 1 and 10, for instance. In this case it's
+    actually the number we're interested in not a symbolic name and
+    there are, generally, too many possible values to create them as
+    contants. Instead we can create an ~EnumeratedRange~.
+
+    #+begin_src javascript
+SmallNum = EnumeratedRange(1, 10, 'SmallNum')
+    #+end_src
+
+    The resulting value, ~SmallNum~ in this example, can then be used
+    as a constructor.  The third parameter is optional and is only
+    relevant when calling ~toString()~. Trying to create a value
+    outside of the allowed range throws an error.
+
+    #+begin_src javascript
+x = SmallNum(1)
+y = SmallNum(5)
+z = SmallNum(10)
+error1 = SmallNum(0)  // Error!
+error2 = SmallNum(11) // Error!
+    #+end_src
+
+    Each value supports the same methods --- ~next()~, ~previous()~,
+    ~toInt()~, ~toString()~, etc. --- as enumerated constants.
+
+    #+begin_src javascript
+x.next()     // SmallNum(2)
+y.previous() // SmallNum(4)
+z.toInt()    // 10
+z.toString() // '10'
+    #+end_src
+    
+    The constructor itself supports the ~first()~, ~last()~,
+    ~iterator()~, and ~fromInt()~ methods.
+
+    #+begin_src javascript
+SmallNum.first()    // SmallNum(1)
+SmallNum.last()     // SmallNum(10)
+SmallNum.fromInt(3) // SmallNum(3)
+
+// Prints all the values to the console.
+SmallNum.iterator().forEach(n => console.log(n.toInt()))
+    #+end_src

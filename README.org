@@ -4,7 +4,7 @@
 *** Installing
 **** Node
      #+begin_src sh
-npm install @jasondelaat/enumeration
+npm install enumerated_types
      #+end_src
 
 **** Browser

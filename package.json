@@ -1,5 +1,5 @@
 {
-  "name": "@jasondelaat/enumeration",
+  "name": "enumerated_types",
   "version": "1.0.0",
   "description": "Full featured, extensible enumerations for javascript.",
   "main": "enumeration.js",
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jasondelaat/enumeration.git"
+    "url": "git+https://github.com/jasondelaat/enumerated_types.git"
   },
   "keywords": [
     "enum",
@@ -17,7 +17,7 @@
     "constants",
     "flags",
     "utility",
-    "enumerated_type",
+    "enumerated_types",
     "node",
     "nodejs",
     "browser"
@@ -25,7 +25,7 @@
   "author": "Jason DeLaat",
   "license": "BSD-3-Clause",
   "bugs": {
-    "url": "https://github.com/jasondelaat/enumeration/issues"
+    "url": "https://github.com/jasondelaat/enumerated_types/issues"
   },
-  "homepage": "https://github.com/jasondelaat/enumeration#readme"
+  "homepage": "https://github.com/jasondelaat/enumerated_types#readme"
 }

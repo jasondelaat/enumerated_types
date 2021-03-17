@@ -173,6 +173,35 @@ console.log(Answers.Maybe.capitalize()); // Maybe
     You can call ~methods~ /at most/ once. After that the prototype
     object is frozen and can't be modified further.
 
+*** Binary options with ~Flags~
+    Flags are like enumerated constants except, instead of being
+    sequential, each flag's value is a power of 2. 
+    
+    #+begin_src javascript
+Options = Flags('A', 'B', 'C', 'D')
+Options.A.toInt() // 1
+Options.B.toInt() // 2
+Options.C.toInt() // 4
+Options.D.toInt() // 8
+    #+end_src
+    
+    This means you can combine multiple flags into a single integer
+    value using the bitwise OR (~|~) operator:
+
+    #+begin_src javascript
+Options.A | Options.B | Options.D;  // 11
+    #+end_src
+    
+    Flag types have an additional method, ~listFromInt()~, which
+    returns a list of all options represented by a given integer.
+
+    #+begin_src javascript
+Options.listFromInt(Options.A | Options.B | Options.D);  // [Options.A, Options.B, Options.D]
+Options.listFromInt(12)                                  // [Options.C, Options.D]
+Options.listFromInt(0)                                   // []
+Options.listFromInt(16)                                  // Error! Out of range.
+    #+end_src
+
 *** Constrained values with ~EnumeratedRange~
     Another type of enumeration are values constrained to a particular
     range: values between 1 and 10, for instance. In this case it's

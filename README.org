@@ -1,14 +1,58 @@
 * Enumerated Types for Javascript
-  An implementation of enumerated types in pure javascript.
-  
+  Full featured, extensible enumerations for javascript.  
 ** Getting Started
 *** Installing
+**** Node
+     #+begin_src sh
+npm install @jasondelaat/enumeration
+     #+end_src
+
+**** Browser
+     Download the package from [[https://github.com/jasondelaat/enumeration/releases][here]]. 
+
+     The ~js~ folder contains two files: ~enumeration.js~ and
+     ~enumeration_module.js~.
+
+     To use ~enumeration.js~ load it from an HTML script tag:
+
+     #+begin_src html
+<script type='text/javascript' src='/js/enumeration.js'></script>
+     #+end_src
+     
+     To use ~enumeration_module.js~ import the required
+     objects/functions:
+
+     #+begin_src javascript
+import * as enumeration from '/js/enumeration_module.js'
+import {Enum} from '/js/enumeration_module.js'
+     #+end_src
+     
 ** Usage
-   The ~enum~ and ~enum_module~ files both provide two functions
-   ~Enum~ --- for creating enumerated constants --- and
-   ~EnumeratedRange~ --- for creating a types with constrained
-   numerical values --- as well as an object ~EnumBase~ which can be
-   used as the prototype of other types of enumerations.
+   The ~enumeration~ package provides a base object,
+   ~EnumerationBase~, on which to base enumerated types.
+   
+   The following methods are available on all enumerated types:
+   
+   | Method                    | Description                                                       | Default Implementation |
+   |---------------------------+-------------------------------------------------------------------+------------------------|
+   | first()                   | Returns the first value in the enumeration                        | no                     |
+   | fromInt(i)                | Returns an enumeration given an integer                           | no                     |
+   | isEqualTo(other)          | Tests two enumerations for equality                               | yes                    |
+   | isGreater(other)          | Test if one enumeration is greater than another                   | yes                    |
+   | isGreaterOrEqualTo(other) | Test if one enumeration is greater than or equal to another       | yes                    |
+   | isLess(other)             | Test if one enumeration is less than another                      | yes                    |
+   | isLessOrEqualTo(other)    | Test if one enumeration is less than or equal to another          | yes                    |
+   | iterator(from, to)        | Gives an iterator between the (optional) given enumeration values | yes                    |
+   | last()                    | Returns the last value of the enumeration                         | no                     |
+   | methods(methods_object)   | Adds additional methods to the enumerated type                    | yes                    |
+   | next()                    | Returns the next enumeration value in the sequence                | yes                    |
+   | previous()                | Returns the previous enumeration value in the sequence            | yes                    |
+   | toInt()                   | Converts an enumeration value to its integer representation       | no                     |
+   | toString()                | Converts an enumeration value to a string representation          | no                     |
+    
+   When creating your own enumerated types, the methods marks "no"
+   under 'Default Implementation' /must/ be implemented. All other
+   methods /may/ be overridden if required.
 
 *** Enumerated constants with ~Enum~
     Use the ~Enum~ function to create a set of constants:
@@ -107,7 +151,7 @@ Color.RED === Color.GREEN                   // false
 Color.RED === Color.RED                     // true
     #+end_src
 
-*** Constrained types with ~EnumeratedRange~
+*** Constrained values with ~EnumeratedRange~
     Another type of enumeration are values constrained to a particular
     range: values between 1 and 10, for instance. In this case it's
     actually the number we're interested in not a symbolic name and

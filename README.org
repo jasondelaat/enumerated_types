@@ -173,6 +173,42 @@ console.log(Answers.Maybe.capitalize()); // Maybe
     You can call ~methods~ /at most/ once. After that the prototype
     object is frozen and can't be modified further.
 
+*** Enumerated constants with ~EnumObjects~
+    The ~EnumObjects~ function works in much the same way as ~Enum~
+    but instead of a list of strings it takes an object as input. Each
+    key becomes a constant and, unlike ~Enum~ each contant can have
+    its own additional properties and methods. 
+
+    #+begin_src javascript
+      Animal = E.EnumObjects({
+	  DOG : {
+	      speak() {
+		  console.log('woof!');
+	      }
+	  },
+	  CAT : {
+	      speak() {
+		  console.log('meow!');
+	      }
+	  },
+	  GIRAFFE : {}
+      }).methods({
+	  speak() {
+	      console.log('...');
+	  }
+      })
+
+      Animal.DOG.speak()     // woof!
+      Animal.CAT.speak()     // meow!
+      Animal.GIRAFFE.speak() // ...
+      Animal.iterator().forEach(a => a.speak())
+    #+end_src
+    
+    In particular, notice that we can use ~methods~ to define default
+    methods which will apply to all constants that don't specifically
+    override it: ~DOG~ and ~CAT~ use their own behaviour while
+    ~GIRAFFE~ uses the default.
+
 *** Binary options with ~Flags~
     Flags are like enumerated constants except, instead of being
     sequential, each flag's value is a power of 2. 

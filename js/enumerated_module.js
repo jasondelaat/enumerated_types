@@ -440,3 +440,74 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     })
     ; return flag_type
 }
+
+; export function EnumObjects(object_map) {
+    /*
+      Build a type of enumerated constants from an object map.
+
+      EnumObjects is very similar to Enum except that in additional to
+      adding default methods to each enumerated value, each value can
+      have it's own methods as well.
+
+      Example:
+          Animal = EnumObjects({
+              DOG : {
+                  speak() {
+                  console.log('woof!');
+                  }
+              },
+              CAT : {
+                  speak() {
+                  console.log('meow!');
+                  }
+              },
+              GIRAFFE : {}
+          }).methods({
+              speak() {
+                  console.log('...');
+              }
+          })
+
+          Animal.DOG.speak()     // woof!
+          Animal.CAT.speak()     // meow!
+          Animal.GIRAFFE.speak() // ...
+
+      Arguments: object_map - An object where each key becomes one
+          enumerated constant. The value associated with each key
+          should itself be an object usually containing methods
+
+      Returns:
+          An object encapsulating the enumerated constants.
+     */
+
+
+    ; const enum_type = EnumerationBase.create()
+    ; const names = Object.keys(object_map)
+    ; Object.assign(enum_type, {
+        first() {
+            ; return enum_type[names[0]]
+        },
+        fromInt(i) {
+            ; return enum_type[names[i]]
+        },
+        last() {
+            ; return enum_type[names[names.length - 1]]
+        },
+        toInt() {
+            ; return this.value
+        },
+        toString() {
+            ; return this.name
+        },
+    })
+    ; names.forEach(n => {
+        ; const enum_obj = Object.create(enum_type)
+        ; Object.assign(enum_obj, object_map[n])
+        ; enum_obj.name = n
+        ; enum_obj.value = names.indexOf(n)
+        ; enum_type[n] = enum_obj
+        ; Object.freeze(enum_obj)
+    })
+    ; Object.freeze(enum_type)
+    ; return enum_type
+}
